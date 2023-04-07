@@ -16,6 +16,7 @@
 
 namespace csharp_oop_shop
 {
+    //classe
     public class Prodotto
     {
         //attributi (caratteristiche)
@@ -25,19 +26,43 @@ namespace csharp_oop_shop
         public float prezzo;
         public byte iva;
 
-        public Prodotto(int codice
-        string nome
-        string? descrizione
-        float prezzo
-        byte iva
-)
+
+        public Prodotto(int _codice, string _nome, string? _descrizione, float _prezzo, byte _iva)
         {
-            codice = 123;
-            
-            
+            this.codice = _codice;
+            this.nome = _nome;
+            this.descrizione = _descrizione;
+            this.prezzo = _prezzo;
+            this.iva = _iva;
+        }
+
+
+        //metodi
+        public int[] RandomCode()
+        {
+            Random rnd = new Random();
+
+            int[] code = new int[5]; 
+
+            for (int i = 0; i<5; i++)
+            {
+                int number = rnd.Next(0, 9);
+                code[i] = number; 
+            }
+
+            return code;
+        }
+
+        public float PrezzoIva()
+        {
+            float prezzo_iva = (prezzo / (100 * 100)) * ((iva + 100) * 100);
+
+            return prezzo_iva; 
         }
     }
 }
+
+
 
 
 
