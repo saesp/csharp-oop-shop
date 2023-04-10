@@ -8,68 +8,83 @@
 //Usate opportunamente i livelli di accesso (public, private), i costruttori, i metodi getter e setter ed eventuali altri metodi di “utilità” per fare in modo che:
 
 //alla creazione di un nuovo prodotto il codice sia valorizzato con un numero random
+
 //Il codice prodotto sia accessibile solo in lettura
 //Gli altri attributi siano accessibili sia in lettura che in scrittura
+
 //Il prodotto esponga sia un metodo per avere il prezzo base che uno per avere il prezzo comprensivo di iva
 //Il prodotto esponga un metodo per avere il nome esteso, ottenuto concatenando codice + nome
 //Testate poi i vostri oggetti Prodotto, istanziandoli e provando ad interargirci per testare tutti i metodi che avete previsto.
 
+using System.Runtime.InteropServices;
+
 namespace csharp_oop_shop
 {
     //classe
-    public class Prodotto
-    {
-        //attributi (caratteristiche)
-        public int codice;
-        public string nome;
-        public string? descrizione;
-        public float prezzo;
-        public byte iva;
-
-
-        public Prodotto(int _codice, string _nome, string? _descrizione, float _prezzo, byte _iva)
+        public class Product
         {
-            this.codice = _codice;
-            this.nome = _nome;
-            this.descrizione = _descrizione;
-            this.prezzo = _prezzo;
-            this.iva = _iva;
-        }
+            //simplified
+            public string Code { get; }
+            public string Name { get; set; }
+            public string? Description { get; set; }
+            public double Price { get; set; }
+            public byte Iva { get; set; }
 
+            ////not simplified
+            //public byte Iva;
+            //public byte GetIva()
+            //{
+            //    return this.iva;
+            //}
+            //public void SetIva(byte iva)
+            //{
+            //    this.iva = iva;
+            //}
 
-        //metodi
-        public int[] RandomCode()
-        {
-            Random rnd = new Random();
-
-            int[] code = new int[5]; 
-
-            for (int i = 0; i<5; i++)
+            public Product(string name, string description, double price, byte iva)
             {
-                int number = rnd.Next(0, 9);
-                code[i] = number; 
+                Code = CreateCode();
+                Name = name;
+                Description = description;
+                Price = price;
+                Iva = iva;
             }
 
-            return code;
-        }
+            //metodi
+            public static string CreateCode()
+            {
+                var code = new Random().Next(0, 1000);
 
-        public float PrezzoIva()
-        {
-            float prezzo_iva = (prezzo / (100 * 100)) * ((iva + 100) * 100);
+                return code.ToString().PadLeft(8, '0');
+            }
 
-            return prezzo_iva; 
+            public double PriceIva()
+            {
+                var price_iva = Price + (Price * Iva / 100);
+
+                return price_iva;
+            }
+
+            public string NameCode()
+            {
+                var result = $"{Code} | {Name}";
+
+                return result;
+            }
+
+            public override string ToString()
+            {
+                var nl = Environment.NewLine;
+
+                var result = $"Prodotto: {PriceIva()}" + nl
+                    + $"Codice: {Code}" + nl
+                    + $"Nome del prodotto: {Name}" + nl
+                    + $"Descrizione del prodotto: {Description}" + nl
+                    + $"Prezzo del prodotto: {Price} $" + nl
+                    + $"Percentuale Iva: {Iva}" + nl
+                    + $"Prezzo con Iva: {NameCode()} euro";
+
+                return result;
+            }
         }
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
