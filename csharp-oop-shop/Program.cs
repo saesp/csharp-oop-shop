@@ -20,6 +20,31 @@ using csharp_oop_shop;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
+Console.WriteLine("Numero prodotti:");
+int productsNum = Convert.ToInt32(Console.ReadLine());
+
+Product[] products = new Product[productsNum];
+
+for (int i = 0; i < productsNum; i++)
+{
+    Console.WriteLine($"inserire nome prodotto {i + 1}:");
+    string name = Console.ReadLine();
+
+    Console.WriteLine($"inserire descrizione prodotto {i + 1}:");
+    string description = Console.ReadLine();
+
+    Console.WriteLine($"inserire prezzo prodotto {i + 1}:");
+    double price = Convert.ToDouble(Console.ReadLine());
+
+    Console.WriteLine($"inserire iva prodotto {i + 1}:");
+    byte iva = (byte)Convert.ToInt32(Console.ReadLine());
+
+
+    Product _object = new Product(name, description, price, iva);
+
+    products[i] = _object;
+}
+
 
 
 namespace csharp_oop_shop
@@ -83,8 +108,8 @@ namespace csharp_oop_shop
             var productWrite = 
                 $"Nome prodotto: {Name}" + nl
                 + $"Descrizione prodotto: {Description}" + nl
-                + $"Prezzo prodotto: {Price} $" + nl
-                + $"Percentuale IVA: {Iva}" + nl
+                + $"Prezzo prodotto: {Price} euro" + nl
+                + $"IVA: {Iva} %" + nl
                 + $"Prezzo + IVA: {PriceIva()} euro";
 
             return productWrite;
