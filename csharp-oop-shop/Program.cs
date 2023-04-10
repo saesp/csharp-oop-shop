@@ -16,75 +16,78 @@
 //Il prodotto esponga un metodo per avere il nome esteso, ottenuto concatenando codice + nome
 //Testate poi i vostri oggetti Prodotto, istanziandoli e provando ad interargirci per testare tutti i metodi che avete previsto.
 
+using csharp_oop_shop;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
+
 
 namespace csharp_oop_shop
 {
     //classe
-        public class Product
+    public class Product
+    {
+        //simplified
+        public string Code { get; }
+        public string Name { get; set; }
+        public string? Description { get; set; }
+        public double Price { get; set; }
+        public byte Iva { get; set; }
+
+        ////not simplified
+        //public byte Iva;
+        //public byte GetIva()
+        //{
+        //    return this.iva;
+        //}
+        //public void SetIva(byte iva)
+        //{
+        //    this.iva = iva;
+        //}
+
+        public Product(string name, string description, double price, byte iva)
         {
-            //simplified
-            public string Code { get; }
-            public string Name { get; set; }
-            public string? Description { get; set; }
-            public double Price { get; set; }
-            public byte Iva { get; set; }
+            Code = CreateCode();
+            Name = name;
+            Description = description;
+            Price = price;
+            Iva = iva;
+        }
 
-            ////not simplified
-            //public byte Iva;
-            //public byte GetIva()
-            //{
-            //    return this.iva;
-            //}
-            //public void SetIva(byte iva)
-            //{
-            //    this.iva = iva;
-            //}
+        //metodi
+        public static string CreateCode()
+        {
+            var code = new Random().Next(0, 1000);
 
-            public Product(string name, string description, double price, byte iva)
-            {
-                Code = CreateCode();
-                Name = name;
-                Description = description;
-                Price = price;
-                Iva = iva;
-            }
+            return code.ToString().PadLeft(8, '0');
+        }
 
-            //metodi
-            public static string CreateCode()
-            {
-                var code = new Random().Next(0, 1000);
+        public double PriceIva()
+        {
+            var price_iva = (Price / (100 * 100)) * ((Iva + 100) * 100);
 
-                return code.ToString().PadLeft(8, '0');
-            }
+            return price_iva;
+        }
 
-            public double PriceIva()
-            {
-                var price_iva = Price + (Price * Iva / 100);
+        public string NameCode()
+        {
+            var result = $"{Code} | {Name}";
 
-                return price_iva;
-            }
+            return result;
+        }
 
-            public string NameCode()
-            {
-                var result = $"{Code} | {Name}";
+        public override string ToString()
+        {
+            var nl = Environment.NewLine;
 
-                return result;
-            }
+            var result = $"Prodotto: {NameCode()}" + nl
+                + $"Codice: {Code}" + nl
+                + $"Nome del prodotto: {Name}" + nl
+                + $"Descrizione del prodotto: {Description}" + nl
+                + $"Prezzo del prodotto: {Price} $" + nl
+                + $"Percentuale Iva: {Iva}" + nl
+                + $"Prezzo con Iva: {PriceIva()} euro";
 
-            public override string ToString()
-            {
-                var nl = Environment.NewLine;
-
-                var result = $"Prodotto: {PriceIva()}" + nl
-                    + $"Codice: {Code}" + nl
-                    + $"Nome del prodotto: {Name}" + nl
-                    + $"Descrizione del prodotto: {Description}" + nl
-                    + $"Prezzo del prodotto: {Price} $" + nl
-                    + $"Percentuale Iva: {Iva}" + nl
-                    + $"Prezzo con Iva: {NameCode()} euro";
-
-                return result;
-            }
+            return result;
         }
     }
+}
