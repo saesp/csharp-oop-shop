@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 
+
 namespace csharp_oop_shop
 {
     //classe
@@ -79,15 +80,14 @@ namespace csharp_oop_shop
         {
             var nl = Environment.NewLine;
 
-            var result = $"Prodotto: {NameCode()}" + nl
-                + $"Codice: {Code}" + nl
-                + $"Nome del prodotto: {Name}" + nl
-                + $"Descrizione del prodotto: {Description}" + nl
-                + $"Prezzo del prodotto: {Price} $" + nl
-                + $"Percentuale Iva: {Iva}" + nl
-                + $"Prezzo con Iva: {PriceIva()} euro";
+            var productWrite = 
+                $"Nome prodotto: {Name}" + nl
+                + $"Descrizione prodotto: {Description}" + nl
+                + $"Prezzo prodotto: {Price} $" + nl
+                + $"Percentuale IVA: {Iva}" + nl
+                + $"Prezzo + IVA: {PriceIva()} euro";
 
-            return result;
+            return productWrite;
         }
     }
 }
