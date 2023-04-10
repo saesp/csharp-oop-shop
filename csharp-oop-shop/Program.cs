@@ -29,7 +29,7 @@ for (int i = 0; i < productsNum; i++)
 {
     Console.WriteLine($"inserire nome prodotto {i + 1}:");
     string name = Console.ReadLine();
-
+     
     Console.WriteLine($"inserire descrizione prodotto {i + 1}:");
     string description = Console.ReadLine();
 
@@ -43,6 +43,14 @@ for (int i = 0; i < productsNum; i++)
     Product _object = new Product(name, description, price, iva);
 
     products[i] = _object;
+}
+
+
+Console.WriteLine("LISTA PRODOTTI:");
+
+for (int i = 0; i < products.Length; i++)
+{
+    Console.WriteLine(products[i].ToString());
 }
 
 
